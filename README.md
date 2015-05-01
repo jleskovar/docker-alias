@@ -1,14 +1,8 @@
 # Docker alias and functions
 
-Useful command line alias for [Docker](https://www.docker.io/)
+Useful docker-related functions with tab completions
 
 ## Install
-
-If you use it in zsh
-
-```bash
-$ curl -fsSL https://raw.github.com/tcnksm/docker-alias/master/zshrc >> ~/.zshrc && source ~/.zshrc
-```
 
 In bash
 

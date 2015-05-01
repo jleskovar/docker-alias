@@ -1,0 +1,49 @@
+# ------------------------------------
+# Docker functions with completions
+# ------------------------------------
+
+# Get latest container ID
+function dl { docker ps -l -q; }
+
+# Get container process
+function dps { docker ps $@; }
+
+# Get process included stop container
+function dpa { docker ps -a $@; }
+
+# Get images
+function di { docker images $@; }
+
+# Get container IP
+function dip { docker inspect --format '{{ .NetworkSettings.IPAddress; }}'; }
+
+# Run deamonized container, e.g., $dkd base /bin/echo hello
+function dkd { docker run -d -P $@; }
+complete -F _docker_images dkd
+
+# Run interactive container, e.g., $dki base /bin/bash
+function dki { docker run -i -t -P $@; }
+complete -F _docker_images dki
+
+# Stop all containers
+function dstop { docker stop $(docker ps -a -q); }
+
+# Remove all containers
+function drm { docker rm $(docker ps -a -q); }
+
+# Stop and Remove all containers
+function drmf { docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q); }
+
+# Remove all images
+function dri { docker rmi $(docker images -q); }
+
+# Dockerfile build, e.g., $dbu tcnksm/test 
+function dbu { docker build -t $1 .; }
+
+# Run bash for any image
+function dbash { docker run --rm -i -t -e TERM=xterm --entrypoint /bin/bash $1; }
+complete -F _docker_images dbash
+
+# Enter docker container
+function dent { docker exec -i -t $1 /bin/bash; }
+complete -F _docker_exec dent
