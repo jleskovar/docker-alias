@@ -48,11 +48,11 @@ function dip { docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1; }
 complete -F _docker_exec_partial dip
 
 # Run deamonized container, e.g., $dkd base /bin/echo hello
-function dkd { docker run -d -P $1; }
+function dkd { docker run -d -P $@; }
 complete -F _docker_images_partial dkd
 
 # Run interactive container, e.g., $dki base /bin/bash
-function dki { docker run -i -t -P $1; }
+function dki { docker run -i -t -P $@; }
 complete -F _docker_images_partial dki
 
 # Stop all containers
