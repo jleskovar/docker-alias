@@ -4,6 +4,11 @@ Useful docker-related functions with correct tab completions.
 
 Fork of tcnksm/docker-alias, modulo zsh support (although I think it should work out of the box?)
 
+## Install
+```bash
+$ curl -fsSL https://raw.github.com/jleskovar/docker-alias/master/docker_functions >> ~/.bashrc && source ~/.bashrc
+```
+
 ## Reference
 
 - [Useful Docker Bash functions and aliases](http://www.kartar.net/2014/03/some-useful-docker-bash-functions-and-aliases/)

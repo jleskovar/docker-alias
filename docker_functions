@@ -1,26 +1,31 @@
 # ------------------------------------
 # Docker functions with completions
 # ------------------------------------
+# Installation:
+#    add the following to .bashrc:  . ~/.docker_functions.sh
 
 #####################################################
 # wrapper to properly tab complete partial input
 #####################################################
 
 function _docker_images_partial {
-	local cur prev words cword
-	_get_comp_words_by_ref -n : cur prev words cword
-	local command=images
-	local completions_func=_docker_${command}
-	declare -F $completions_func >/dev/null && $completions_func
+	local cur
+	_get_comp_words_by_ref cur
+	declare -F _docker_images >/dev/null && _docker_images
 	return 0
 }
 
 function _docker_exec_partial {
-	local cur prev words cword
-	_get_comp_words_by_ref -n : cur prev words cword
-	local command=exec
-	local completions_func=_docker_${command}
-	declare -F $completions_func >/dev/null && $completions_func
+	local cur
+	_get_comp_words_by_ref cur
+	declare -F _docker_exec >/dev/null && _docker_exec
+	return 0
+}
+
+function _docker_stats_partial {
+	local cur
+	_get_comp_words_by_ref cur
+	declare -F _docker_stats >/dev/null && _docker_stats
 	return 0
 }
 
@@ -76,3 +81,7 @@ complete -F _docker_exec_partial dent
 # Find out container PID
 function dpid { docker inspect --format '{{.State.Pid}}' $@; }
 complete -F _docker_exec_partial dpid
+
+# Get stats for a container
+function ds { docker stats $@; }
+complete -F _docker_stats_partial ds
