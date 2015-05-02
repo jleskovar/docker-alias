@@ -15,8 +15,8 @@ function dpa { docker ps -a $@; }
 function di { docker images $@; }
 
 # Get container IP
-function dip { docker inspect --format '{{ .NetworkSettings.IPAddress; }}' $@; }
-complete -F _docker_images dip
+function dip { docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1; }
+complete -F _docker_exec dip
 
 # Run deamonized container, e.g., $dkd base /bin/echo hello
 function dkd { docker run -d -P $1; }
@@ -50,5 +50,5 @@ function dent { docker exec -i -t $1 /bin/bash; }
 complete -F _docker_exec dent
 
 # Find out container PID
-function dpid { docker inspect --format {{.State.Pid}} $@; }
+function dpid { docker inspect --format '{{.State.Pid}}' $@; }
 complete -F _docker_exec dpid
