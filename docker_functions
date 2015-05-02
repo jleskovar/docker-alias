@@ -7,7 +7,6 @@
 #####################################################
 
 function _docker_images_partial {
-	local cur
 	local cur prev words cword
 	_get_comp_words_by_ref -n : cur prev words cword
 	declare -F _docker_images >/dev/null && _docker_images
@@ -15,7 +14,6 @@ function _docker_images_partial {
 }
 
 function _docker_exec_partial {
-	local cur
 	local cur prev words cword
 	_get_comp_words_by_ref -n : cur prev words cword
 	declare -F _docker_exec >/dev/null && _docker_exec
@@ -23,7 +21,6 @@ function _docker_exec_partial {
 }
 
 function _docker_stats_partial {
-	local cur
 	local cur prev words cword
 	_get_comp_words_by_ref -n : cur prev words cword
 	declare -F _docker_stats >/dev/null && _docker_stats
