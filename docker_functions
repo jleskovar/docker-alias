@@ -2,6 +2,30 @@
 # Docker functions with completions
 # ------------------------------------
 
+#####################################################
+# wrapper to properly tab complete partial input
+#####################################################
+
+function _docker_images_partial {
+	local cur prev words cword
+	_get_comp_words_by_ref -n : cur prev words cword
+	local command=images
+	local completions_func=_docker_${command}
+	declare -F $completions_func >/dev/null && $completions_func
+	return 0
+}
+
+function _docker_exec_partial {
+	local cur prev words cword
+	_get_comp_words_by_ref -n : cur prev words cword
+	local command=exec
+	local completions_func=_docker_${command}
+	declare -F $completions_func >/dev/null && $completions_func
+	return 0
+}
+
+#####################################################
+
 # Get latest container ID
 function dl { docker ps -l -q; }
 
@@ -16,15 +40,15 @@ function di { docker images $@; }
 
 # Get container IP
 function dip { docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1; }
-complete -F _docker_exec dip
+complete -F _docker_exec_partial dip
 
 # Run deamonized container, e.g., $dkd base /bin/echo hello
 function dkd { docker run -d -P $1; }
-complete -F _docker_images dkd
+complete -F _docker_images_partial dkd
 
 # Run interactive container, e.g., $dki base /bin/bash
 function dki { docker run -i -t -P $1; }
-complete -F _docker_images dki
+complete -F _docker_images_partial dki
 
 # Stop all containers
 function dstop { docker stop $(docker ps -a -q); }
@@ -43,12 +67,12 @@ function dbu { docker build -t $1 .; }
 
 # Run bash for any image
 function dbash { docker run --rm -i -t -e TERM=xterm --entrypoint /bin/bash $1; }
-complete -F _docker_images dbash
+complete -F _docker_images_partial dbash
 
 # Enter docker container
 function dent { docker exec -i -t $1 /bin/bash; }
-complete -F _docker_exec dent
+complete -F _docker_exec_partial dent
 
 # Find out container PID
 function dpid { docker inspect --format '{{.State.Pid}}' $@; }
-complete -F _docker_exec dpid
+complete -F _docker_exec_partial dpid
