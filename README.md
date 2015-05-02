@@ -1,6 +1,8 @@
-# Docker alias and functions
+# Docker functions
 
-Useful docker-related functions with tab completions
+Useful docker-related functions with correct tab completions.
+
+Fork of tcnksm/docker-alias, modulo zsh support (although I think it should work out of the box?)
 
 ## Reference
 
