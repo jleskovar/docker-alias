@@ -9,20 +9,39 @@
 function _docker_images_partial {
 	local cur prev words cword
 	_get_comp_words_by_ref -n : cur prev words cword
+	cpos=1
 	declare -F _docker_images >/dev/null && _docker_images
+	return 0
+}
+
+function _docker_run_partial {
+	local cur prev words cword
+	_get_comp_words_by_ref -n : cur prev words cword
+	cpos=1
+	declare -F _docker_run >/dev/null && _docker_run
 	return 0
 }
 
 function _docker_exec_partial {
 	local cur prev words cword
 	_get_comp_words_by_ref -n : cur prev words cword
+	cpos=1
 	declare -F _docker_exec >/dev/null && _docker_exec
+	return 0
+}
+
+function _docker_inspect_partial {
+	local cur prev words cword
+	_get_comp_words_by_ref -n : cur prev words cword
+	cpos=1
+	declare -F _docker_inspect >/dev/null && _docker_inspect
 	return 0
 }
 
 function _docker_stats_partial {
 	local cur prev words cword
 	_get_comp_words_by_ref -n : cur prev words cword
+	cpos=1
 	declare -F _docker_stats >/dev/null && _docker_stats
 	return 0
 }
@@ -43,15 +62,15 @@ function di { docker images $@; }
 
 # Get container IP
 function dip { docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1; }
-complete -F _docker_exec_partial dip
+complete -F _docker_inspect_partial dip
 
 # Run deamonized container, e.g., $dkd base /bin/echo hello
 function dkd { docker run -d -P $@; }
-complete -F _docker_images_partial dkd
+complete -F _docker_run_partial dkd
 
 # Run interactive container, e.g., $dki base /bin/bash
 function dki { docker run -i -t -P $@; }
-complete -F _docker_images_partial dki
+complete -F _docker_run_partial dki
 
 # Stop all containers
 function dstop { docker stop $(docker ps -a -q); }
@@ -70,7 +89,7 @@ function dbu { docker build -t $1 .; }
 
 # Run bash for any image
 function dbash { docker run --rm -i -t -e TERM=xterm --entrypoint /bin/bash $1; }
-complete -F _docker_images_partial dbash
+complete -F _docker_run_partial dbash
 
 # Enter docker container
 function dent { docker exec -i -t $1 /bin/bash; }
@@ -78,7 +97,7 @@ complete -F _docker_exec_partial dent
 
 # Find out container PID
 function dpid { docker inspect --format '{{.State.Pid}}' $@; }
-complete -F _docker_exec_partial dpid
+complete -F _docker_inspect_partial dpid
 
 # Get stats for a container
 function ds { docker stats $@; }
