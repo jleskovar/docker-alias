@@ -1,7 +1,6 @@
 # Docker 
 
-seful docker-related  with
-Fork of tcnksm/docker-alias, modulo zsh support (although I think it should work out of the box?)
+Fork of tcnksm/docker-alias, modulo zsh support (although it may work out of the box)
 
 ## Pre-requisites
 Make sure the official [Docker bash completions](https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker) are installed 
@@ -64,5 +63,5 @@ $ curl -fsSL https://raw.github.com/jleskovar/docker-alias/master/docker_functio
 
 ## Reference
 
-- [Useful Docker Bash  and
-- [15 QUICK DOCKER TIPS](htp://www.centurylinklabs.com/15-quick-docker-tips/)
+- [Useful Docker Bash functions and aliases](http://www.kartar.net/2014/03/some-useful-docker-bash-functions-and-aliases/)
+- [15 QUICK DOCKER TIPS](http://www.centurylinklabs.com/15-quick-docker-tips/)
