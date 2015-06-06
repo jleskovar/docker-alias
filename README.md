@@ -60,6 +60,11 @@ $ curl -fsSL https://raw.github.com/jleskovar/docker-alias/master/docker_functio
     # Get stats for a container
     ds
 
+    # Remove all untagged images
+    dgc
+
+    # Kill container
+    dkill { docker kill $1; }
 
 ## Reference
 

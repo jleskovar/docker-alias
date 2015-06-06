@@ -81,6 +81,9 @@ function drm { docker rm $(docker ps -a -q); }
 # Stop and Remove all containers
 function dsr { docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q); }
 
+# Remove all untagged images
+function dgc { docker rmi -f $(docker images | grep "^<none>" | awk '{print $3}'); }
+
 # Remove all images
 function dri { docker rmi $(docker images -q); }
 
@@ -90,6 +93,10 @@ function dbu { docker build -t $1 .; }
 # Run bash for any image
 function dbash { docker run --rm -i -t -e TERM=xterm --entrypoint /bin/bash $1; }
 complete -F _docker_run_partial dbash
+
+# Kill container
+function dkill { docker kill $1; }
+complete -F _docker_exec_partial dkill
 
 # Enter docker container
 function dent { docker exec -i -t $1 /bin/bash; }
